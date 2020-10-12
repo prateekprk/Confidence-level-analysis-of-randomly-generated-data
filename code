@@ -1,0 +1,61 @@
+# Use the following data for this assignment:
+import matplotlib.pyplot as plt
+import pandas as pd
+import numpy as np
+import math
+
+
+np.random.seed(12345)
+
+df = pd.DataFrame([np.random.normal(32000,200000,3650), 
+                   np.random.normal(43000,100000,3650), 
+                   np.random.normal(43500,140000,3650), 
+                   np.random.normal(48000,70000,3650)], 
+                  index=[1992,1993,1994,1995])
+dff = df.swapaxes('index','columns')
+
+value = dff.mean()
+std = dff.std()
+CI = 1.96*(std.values)/(math.sqrt(len(dff.columns)))
+
+###################################### Calculation part is over #############################################
+###################################### Logic for colors goes below ##########################################
+
+y_val = float(input("Enter the value of 'Y-axis' you want to check :: "))
+
+def coloring(value, y_val, CI):
+    if (value - CI) <= y_val and (value + CI) >= y_val:
+        return "white"
+    
+    if value < y_val:
+        return "blue"
+    
+    if value > y_val:
+        return "red"
+    
+plt.rcParams["figure.figsize"] = (12,10)
+fig, ax = plt.subplots()
+colors=[coloring(value.iloc[0], y_val, CI[0]),
+        coloring(value.iloc[1], y_val, CI[1]), 
+        coloring(value.iloc[2], y_val, CI[2]), 
+        coloring(value.iloc[3], y_val, CI[3])]
+plt.axhline(y=y_val, zorder=1, color='forestgreen')
+plt.bar(range(len(dff.columns)), value+np.abs(dff.values.min()), bottom=dff.values.min(),
+        yerr=CI, align='center', alpha=0.8, color=colors)
+plt.xticks(range(len(dff.columns)), dff.columns)
+plt.title('Analyzing Confidence Level For a Set of Data')
+plt.xlabel('Year')
+plt.ylabel('Population')
+fig.set_facecolor("white")
+ax.set_facecolor('lightgrey')
+ax.spines['right'].set_color((.8,.8,.8))
+ax.spines['top'].set_color((.8,.8,.8))
+xlab = ax.xaxis.get_label()
+ylab = ax.yaxis.get_label()
+xlab.set_style('italic')
+xlab.set_size(10)
+ylab.set_style('italic')
+ylab.set_size(10)
+ttl = ax.title
+ttl.set_weight('bold')
+plt.show()
