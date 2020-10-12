@@ -1,0 +1,11 @@
+This program will generate a plot based on whether the data given by the user lies in the confidence interval or not.
+
+There are only three colors used in the chart: White, Blue and Red.
+
+For each data taken as an input by the user, a line on y-axis is drawn to indicate the point.
+
+White occurs when the user input data lies in the confidence interval
+
+Blue occurs when the user input data lies above the confidence interval
+
+Red occurs when the user input data lies below the confidence interval
