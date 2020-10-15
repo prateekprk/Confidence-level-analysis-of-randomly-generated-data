@@ -1,4 +1,4 @@
-##### Confidence Level Analysis ###
+##### Confidence Level Analysis ####
 
 This program will generate a plot based on whether the data given by the user lies in the confidence interval or not.
 There are only three colors used in the chart: White, Blue and Red.
